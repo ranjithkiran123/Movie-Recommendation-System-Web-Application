@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Recommender</title>
+    <style>
+        body {
+            background-image: url("background.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 50px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 30px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 70%;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Recommender</h1>
+
+        <form method="POST" action="/" style="display: flex; align-items: center;">
+            <label for="movie_name">Enter Movie Name:</label>
+            <input type="text" id="movie_name" name="movie_name">
+            <button type="submit">Search</button>
+            
+        </form>
+        
+
+        <br>
+
+        
+        {% if movie_recommendations %}
+            <h2>Movie Recommendations for {{ movie_recommendations.title }}</h2>
+            <p>Overview: {{ movie_recommendations.overview }}</p>
+
+            <br>
+
+            <br>
+
+            
+            <p>Cast: {{ movie_recommendations.cast }}</p>
+
+            <br>
+
+            <br>
+            
+            <p>Similar Movies:</p>
+            <ul>
+                {% for similar_movie in movie_recommendations.similar_movies %}
+                    <li>{{ similar_movie.title }}</li>
+                {% endfor %}
+            </ul>
+        {% elif error_message %}
+            <p>{{ error_message }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
